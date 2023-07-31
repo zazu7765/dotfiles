@@ -455,7 +455,12 @@ require('neodev').setup()
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.foldingRange = {
+  dynamicRegistration = false,
+  lineFoldingOnly = true
+}
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+
 
 -- Ensure the servers above are installed
 local mason_lspconfig = require 'mason-lspconfig'
@@ -522,10 +527,7 @@ cmp.setup {
   },
 }
 
-require('ufo').setup({
-  provider_selector = function (bufnr, filetype, buftype)
-    return {'treesitter', 'indent'}
-  end})
+require('ufo').setup()
 vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
 vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
 -- The line beneath this is called `modeline`. See `:help modeline`
