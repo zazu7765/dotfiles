@@ -193,6 +193,12 @@ require('lazy').setup({
     },
     build = ':TSUpdate',
   },
+  {
+    'kevinhwang91/nvim-ufo',
+    dependencies={
+      'kevinhwang91/promise-async',
+    },
+  },
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
@@ -516,5 +522,11 @@ cmp.setup {
   },
 }
 
+require('ufo').setup({
+  provider_selector = function (bufnr, filetype, buftype)
+    return {'treesitter', 'indent'}
+  end})
+vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
+vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
