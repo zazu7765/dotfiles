@@ -1,5 +1,4 @@
 --[[
-
 =====================================================================
 ==================== READ THIS BEFORE CONTINUING ====================
 =====================================================================
@@ -40,8 +39,7 @@ P.S. You can delete this when you're done too. It's your config now :)
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
-vim.o.foldcolumn = '1' -- '0' is not bad
-vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+vim.o.foldcolumn = '1' -- '0' is not bad vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
 -- Install package manager
@@ -134,14 +132,12 @@ require('lazy').setup({
   },
 
   {
-    'rose-pine/neovim',
+    'blazkowolf/gruber-darker.nvim',
     priority = 1000,
     config = function()
-      vim.cmd.colorscheme 'rose-pine'
+      vim.cmd.colorscheme 'gruber-darker'
     end,
     opts = {
-      variant = 'moon',
-      disable_background = 'false',
     },
   },
   {
@@ -151,7 +147,7 @@ require('lazy').setup({
     opts = {
       options = {
         icons_enabled = true,
-        theme = 'rose-pine',
+        -- theme = 'rose-pine',
         component_separators = '|',
         section_separators = '',
       },
@@ -161,11 +157,10 @@ require('lazy').setup({
   {
     -- Add indentation guides even on blank lines
     'lukas-reineke/indent-blankline.nvim',
+    main="ibl",
     -- Enable `lukas-reineke/indent-blankline.nvim`
     -- See `:help indent_blankline.txt`
     opts = {
-      char = '┊',
-      show_trailing_blankline_indent = false,
     },
   },
 
@@ -441,9 +436,12 @@ local servers = {
   gopls = {},
   pyright = {},
   rust_analyzer = {},
-  tsserver = {},
-  tailwindcss = {},
-  volar = {},
+--tsserver = {},
+--tailwindcss = {},
+--  volar = {},
+-- elixirls = {
+--    cmd = {"elixir-ls"},
+  --    },
 
   lua_ls = {
     Lua = {
