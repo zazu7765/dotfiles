@@ -554,6 +554,7 @@ require('lazy').setup({
       --  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+      local lspconfig = require 'lspconfig'
 
       -- Enable the following language servers
       --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
@@ -565,7 +566,11 @@ require('lazy').setup({
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
-        clangd = {},
+        clangd = {
+          cmd = { 'clangd', '--compile-commands-dir=./build' },
+          filetypes = { 'c', 'cpp', 'objc', 'objcpp' },
+          root_dir = lspconfig.util.root_pattern('compile_commands.json', 'compile_flags.txt', '.git'),
+        },
         gopls = {},
         pyright = {},
         rust_analyzer = {},
