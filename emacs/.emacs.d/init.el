@@ -22,8 +22,10 @@
               (set-time-zone-rule newtz))))
         env))))
 
+(when (eq system-type 'darwin)
 ;; macos fix for bad native comp
 (load-env-file "~/.emacs.d/local/env.el")
+)
 
 ;; Startup
 (setq inhibit-startup-message t)
