@@ -388,3 +388,59 @@
   (util/org-font-setup)
   )
 #+end_src
+* Development
+** Language Servers
+#+begin_src emacs-lisp
+  (use-package lsp-mode
+    :commands (lsp lsp-deferred)
+    :defer t
+    :config
+    (lsp-enable-which-key-integration t)
+    )
+
+  (use-package lsp-ui
+    :hook
+    ((lsp-mode . lsp-ui-mode)))
+
+  (config/leader-keys
+    :states '(normal visual)
+    :keymaps 'lsp-mode-map
+    "lgd" '(lsp-find-definition :which-key "go to definition")
+    "lgr" '(lsp-find-references :which-key "find references")
+    "lK"  '(lsp-describe-thing-at-point :which-key "hover documentation")
+    "lgi" '(lsp-find-implementation :which-key "go to implementation")
+    "lgt" '(lsp-find-type-definition :which-key "go to type definition")
+    "lgl" '(lsp-ui-flycheck-list :which-key "list diagnostics")
+    "lgD" '(lsp-find-declaration :which-key "peek definition"))
+
+  (use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
+  (use-package dap-mode)
+
+  (use-package company-quickhelp
+    :hook (company-quickhelp-mode . lsp-deferred)
+    )
+#+end_src
+** Flycheck
+#+begin_src emacs-lisp
+(use-package flycheck
+  :ensure t
+  :config
+  (add-hook 'after-init-hook #'global-flycheck-mode))
+#+end_src
+** Languages
+*** Golang
+#+begin_src emacs-lisp
+  (defun ime-go-before-save ()
+    (interactive)
+    (when lsp-mode
+      (lsp-organize-imports)
+      (lsp-format-buffer)))
+
+  (use-package go-mode
+    :defer t
+    :config
+    (add-hook 'go-mode-hook 'lsp-deferred)
+    (add-hook 'go-mode-hook
+              (lambda ()
+                (add-hook 'before-save-hook 'ime-go-before-save))))
+#+end_src

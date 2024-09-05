@@ -55,7 +55,9 @@ setopt hist_find_no_dups
 #Aliases
 alias ls='ls --color'
 
-
+export PATH="/Users/daniel/.local/bin:$PATH"
+export PATH="/Users/daniel/.config/emacs/bin:$PATH"
+export PATH="/opt/homebrew/opt/grep/libexec/gnubin:$PATH"
 export PATH="$(brew --prefix)/opt/llvm/bin:$HOME/Go/bin:$PATH"
 . "$HOME/.cargo/env"
 # end must evaluate
@@ -75,5 +77,7 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
+
+GIT_EDITOR="hx"
 
 eval "$(zellij setup --generate-auto-start zsh)"

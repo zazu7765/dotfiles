@@ -322,3 +322,64 @@
 	)
   (util/org-font-setup)
   )
+
+(use-package lsp-mode
+  :commands (lsp lsp-deferred)
+  :defer t
+  :config
+  (lsp-enable-which-key-integration t)
+  )
+
+(use-package lsp-ui
+  :hook
+  ((lsp-mode . lsp-ui-mode)))
+
+(config/leader-keys
+  :states '(normal visual)
+  :keymaps 'lsp-mode-map
+  "lgd" '(lsp-find-definition :which-key "go to definition")
+  "lgr" '(lsp-find-references :which-key "find references")
+  "lK"  '(lsp-describe-thing-at-point :which-key "hover documentation")
+  "lgi" '(lsp-find-implementation :which-key "go to implementation")
+  "lgt" '(lsp-find-type-definition :which-key "go to type definition")
+  "lgl" '(lsp-ui-flycheck-list :which-key "list diagnostics")
+  "lgD" '(lsp-find-declaration :which-key "peek definition"))
+
+(use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
+(use-package dap-mode)
+
+(use-package company-quickhelp
+  :hook (company-quickhelp-mode . lsp-deferred)
+  )
+
+(use-package flycheck
+  :ensure t
+  :config
+  (add-hook 'after-init-hook #'global-flycheck-mode))
+
+(defun ime-go-before-save ()
+  (interactive)
+  (when lsp-mode
+    (lsp-organize-imports)
+    (lsp-format-buffer)))
+
+(use-package go-mode
+  :defer t
+  :config
+  (add-hook 'go-mode-hook 'lsp-deferred)
+  (add-hook 'go-mode-hook
+            (lambda ()
+              (add-hook 'before-save-hook 'ime-go-before-save))))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(flycheck which-key visual-fill-column svg-tag-mode rainbow-delimiters org-bullets mood-line modus-themes lsp-ui lsp-ivy ivy-rich helpful go-mode general forge evil-org evil-collection doom-modeline dap-mode counsel-projectile company-quickhelp command-log-mode all-the-icons)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
