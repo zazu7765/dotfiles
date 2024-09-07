@@ -34,6 +34,7 @@
 ;; `load-theme' function. This is the default:
 (setq doom-theme 'modus-vivendi)
 
+(add-to-list 'default-frame-alist '(undecorated-round . t))
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type t)
@@ -79,5 +80,38 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+(defun org-hugo-new-subtree-post-capture-template ()
+  "Returns `org-capture' template string for new Hugo post.
+See `org-capture-templates' for more information."
+  (let* ((title (read-from-minibuffer "Thought Title: ")) ;Prompt to enter the post title
+         (fname (org-hugo-slug title)))
+    (mapconcat #'identity
+               `(
+                 ,(concat "* TODO " title)
+                 ":PROPERTIES:"
+                 ,(concat ":EXPORT_FILE_NAME: " fname)
+                 ":END:"
+                 "%?\n")          ;Place the cursor here finally
+               "\n")))
+
 (after! org
-  (add-to-list 'org-agenda-files "~/org/tasks.org"))
+  (setq org-log-done 'time)
+  (add-to-list 'org-agenda-files "~/org/tasks.org")
+
+
+  (add-to-list 'org-capture-templates
+               '("h"                ;`org-capture' binding + h
+                 "Blog Thought"
+                 entry
+                 (file+olp "blog-content/thoughts.org" "Thoughts")
+                 (function org-hugo-new-subtree-post-capture-template))))
+
+
+
+(after! org-download
+  (setq org-download-method 'directory)
+  (setq org-download-image-dir (concat (file-name-sans-extension (buffer-file-name)) "-img"))
+  (setq org-download-image-org-width 600)
+  (setq org-download-link-format "[[file:%s]]\n"
+        org-download-abbreviate-filename-function #'file-relative-name)
+  (setq org-download-link-format-function #'org-download-link-format-function-default))
