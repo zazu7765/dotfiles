@@ -34,6 +34,31 @@
 ;; `load-theme' function. This is the default:
 (setq doom-theme 'modus-vivendi)
 
+(setq confirm-kill-emacs nil)
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((plantuml . t)))
+(setq org-hide-emphasis-markers t)
+(setq plantuml-jar-path
+      "~/bin/plantuml-1.2024.7.jar")
+(setq org-plantuml-jar-path "~/bin/plantuml-1.2024.7.jar")
+
+;; Load ECLiPSe mode
+(autoload 'eclipse-mode "~/.config/emacs/lisp/eclipse.el" "ECLiPSe editing mode" t)
+(autoload 'eclipse-esp-mode "~/.config/emacs/lisp/eclipse.el" "ECLiPSe-ESP editing mode" t)
+(setq auto-mode-alist (cons '("\\.pl" . eclipse-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '("\\.esp" . eclipse-esp-mode) auto-mode-alist))
+;; Set the ECLiPSe executable path
+;;(setq eclipse-executable "~/eclipse/bin/x86_64_macosx/eclipse")
+(setq eclipse-program-call "~/eclipse/bin/x86_64_macosx/eclipse")
+
+(add-to-list 'auto-mode-alist '("\\.pl\\'" . eclipse-mode))
+
+
+
+
+
 (add-to-list 'default-frame-alist '(undecorated-round . t))
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -47,6 +72,9 @@
  doom-font (font-spec :family "JetbrainsMono Nerd Font" :size 12)
  doom-variable-pitch-font (font-spec :family "Iosevka Aile")
  doom-serif-font (font-spec :family "Iosevka Aile"))
+
+(after! doom-dashboard
+  (setq fancy-splash-image "~/dotfiles/doom/xemacs_color.png"))
 
 (setq projectile-project-search-path '("~/Projects/"))
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
