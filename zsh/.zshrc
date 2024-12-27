@@ -80,9 +80,6 @@ unset __conda_setup
 
 GIT_EDITOR="hx"
 
-eval "$(zellij setup --generate-auto-start zsh)"
-
-
 # BEGIN opam configuration
 # This is useful if you're using opam as it adds:
 #   - the correct directories to the PATH
@@ -90,3 +87,7 @@ eval "$(zellij setup --generate-auto-start zsh)"
 # This section can be safely removed at any time if needed.
 [[ ! -r '/Users/daniel/.opam/opam-init/init.zsh' ]] || source '/Users/daniel/.opam/opam-init/init.zsh' > /dev/null 2> /dev/null
 # END opam configuration
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"

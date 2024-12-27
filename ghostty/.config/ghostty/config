@@ -1,0 +1,3 @@
+theme = tomorrow night burns
+macos-titlebar-style = hidden
+keybind = alt+space=toggle_quick_terminal

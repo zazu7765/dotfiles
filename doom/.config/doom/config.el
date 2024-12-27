@@ -32,8 +32,48 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'modus-vivendi)
 
+;; Configure Modus Vivendi with Helix-like colors
+(setq modus-vivendi-palette-overrides
+      '(;; Basic backgrounds and foregrounds closer to Helix's values
+        (bg-main "#000000")          ; Pure black background
+        (bg-dim "#1e1e1e")           ; Slightly lighter for contrast
+        (fg-main "#ffffff")          ; Pure white foreground
+        (fg-dim "#989898")           ; Dimmed text
+        (fg-alt "#c6daff")           ; Alternative foreground
+
+        ;; Prominent syntactic elements
+        (builtin "#b6a0ff")          ; magenta-cooler from Helix
+        (keyword "#b6a0ff")          ; magenta-cooler for keywords
+        (string "#79a8ff")           ; blue-warmer for strings
+        (constant "#00bcff")         ; blue-cooler for constants
+        (fnname "#feacd0")           ; magenta for function names
+        (variable "#6ae4b9")         ; cyan-cooler for variables
+        (type "#6ae4b9")             ; cyan-cooler for types
+
+        ;; Comments and documentation
+        (comment "#989898")          ; Using fg-dim for comments
+        (docstring "#c6daff")        ; Using fg-alt for docstrings
+
+        ;; UI elements
+        (border "#535353")           ; From Helix's bg-active
+        (cursor "#ffffff")           ; Pure white cursor
+
+        ;; Search and selection
+        (bg-region "#535353")        ; Active selection background
+        (fg-region "#ffffff")        ; Selection text color
+
+        ;; Diffs and version control
+        (bg-removed "#4f1119")       ; Red background for removed
+        (bg-added "#00381f")         ; Green background for added
+        (bg-changed "#363300")))       ; Yellow background for changed
+
+;; Optional: Configure other Modus themes settings
+(setq modus-themes-bold-constructs t)         ; Make syntactic elements bold
+(setq modus-themes-italic-constructs t)       ; Use italics for docstrings etc.
+(setq modus-themes-variable-pitch-ui nil)     ; Use fixed-pitch for UI elements
+(setq doom-theme 'modus-vivendi-tritanopia)
+(setq global-hl-line-mode nil)
 (setq confirm-kill-emacs nil)
 
 (org-babel-do-load-languages
@@ -45,13 +85,12 @@
 (setq org-plantuml-jar-path "~/bin/plantuml-1.2024.7.jar")
 
 ;; Load ECLiPSe mode
+(setq eclipse-program-call "~/eclipse/bin/x86_64_macosx/eclipse")
 (autoload 'eclipse-mode "~/.config/emacs/lisp/eclipse.el" "ECLiPSe editing mode" t)
 (autoload 'eclipse-esp-mode "~/.config/emacs/lisp/eclipse.el" "ECLiPSe-ESP editing mode" t)
 (setq auto-mode-alist (cons '("\\.pl" . eclipse-mode) auto-mode-alist))
 (setq auto-mode-alist (cons '("\\.esp" . eclipse-esp-mode) auto-mode-alist))
 ;; Set the ECLiPSe executable path
-;;(setq eclipse-executable "~/eclipse/bin/x86_64_macosx/eclipse")
-(setq eclipse-program-call "~/eclipse/bin/x86_64_macosx/eclipse")
 
 (add-to-list 'auto-mode-alist '("\\.pl\\'" . eclipse-mode))
 
@@ -69,7 +108,7 @@
 (setq org-directory "~/org/")
 
 (setq
- doom-font (font-spec :family "JetbrainsMono Nerd Font" :size 12)
+ doom-font (font-spec :family "JetbrainsMono Nerd Font" :size 12.0)
  doom-variable-pitch-font (font-spec :family "Iosevka Aile")
  doom-serif-font (font-spec :family "Iosevka Aile"))
 
@@ -77,6 +116,7 @@
   (setq fancy-splash-image "~/dotfiles/doom/xemacs_color.png"))
 
 (setq projectile-project-search-path '("~/Projects/"))
+(setq projectile-require-project-root t)
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
 ;;
@@ -122,17 +162,22 @@ See `org-capture-templates' for more information."
                  "%?\n")          ;Place the cursor here finally
                "\n")))
 
+(after! lsp-ui
+  (setq lsp-ui-doc-enable t)
+  (setq lsp-ui-doc-position 'at-point))
+
 (after! org
   (setq org-log-done 'time)
   (add-to-list 'org-agenda-files "~/org/tasks.org")
+  (add-hook 'org-mode-hook #'org-fragtog-mode))
 
 
-  (add-to-list 'org-capture-templates
-               '("h"                ;`org-capture' binding + h
-                 "Blog Thought"
-                 entry
-                 (file+olp "blog-content/thoughts.org" "Thoughts")
-                 (function org-hugo-new-subtree-post-capture-template))))
+(add-to-list 'org-capture-templates
+             '("h"                ;`org-capture' binding + h
+               "Blog Thought"
+               entry
+               (file+olp "blog-content/thoughts.org" "Thoughts")
+               (function org-hugo-new-subtree-post-capture-template)))
 
 
 
