@@ -8,6 +8,11 @@ return {
     -- Only one of these is needed.
     "nvim-telescope/telescope.nvim", -- optional
   },
+  opts = {
+      commit_view = {
+        verify_commit = true
+      }
+    },
   config = true
 },
 }
