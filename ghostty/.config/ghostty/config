@@ -1,3 +1,3 @@
-theme = tomorrow night burns
+theme = kanagawa-dragon
 macos-titlebar-style = hidden
 keybind = global:alt+space=toggle_quick_terminal
