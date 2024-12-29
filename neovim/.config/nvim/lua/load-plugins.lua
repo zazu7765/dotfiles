@@ -1,11 +1,6 @@
 require('lazy').setup({
 	'tpope/vim-sleuth',
-
-  require 'plugins/treesitter',
-  require 'plugins/telescope',
-  require 'plugins/nvim-cmp',
-  require 'plugins/lspconfig',
-  require 'plugins/neogit',
+  {import = 'plugins'}
 },
 {}
 )

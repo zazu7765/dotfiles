@@ -4,10 +4,10 @@ vim.g.have_nerd_font = true
 
 vim.cmd.colorscheme 'slate'
 
+require 'lazy-start'
+require 'load-plugins'
+
 require 'options'
 
 require 'keymaps'
 
-require 'lazy-start'
-
-require 'load-plugins'
