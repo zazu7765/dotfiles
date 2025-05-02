@@ -32,6 +32,7 @@ brew 'rm-improved'
 #brew 'pnpm'
 brew 'mise'
 brew 'uv'
+brew 'pinentry-mac'
 # casks
 cask 'ghostty'
 cask 'vlc'
