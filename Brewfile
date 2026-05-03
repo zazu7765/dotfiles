@@ -1,23 +1,26 @@
 brew 'git'
-brew 'fish'
-brew 'zoxide'
+# brew 'fish' # torn on whether to keep
+brew 'starship'
+brew 'zoxide' # better cd
 brew 'stow'
 brew 'wget'
-brew 'bat'
-brew 'broot'
-brew 'tree'
-brew 'btop'
-brew 'colima'
+brew 'bat' # better cat
+#brew 'broot'
+brew 'tree' # readme
+brew 'btop' # larp
+brew 'colima' # better runtime
 brew 'docker'
 brew 'docker-compose'
 brew 'docker-credential-helper'
-brew 'eza'
+brew 'eza' # better ls 
 brew 'gh'
 brew 'gcc'
-brew 'helix'
-brew 'fzf'
-brew 'neovim'
-brew 'httpie'
+brew 'typst' # better latex
+brew 'ffmpeg'
+# brew 'helix'
+# brew 'fzf'
+# brew 'neovim'
+# brew 'httpie'
 brew 'gnupg'
 brew 'jq'
 brew 'lazygit'
@@ -25,7 +28,7 @@ brew 'lazydocker'
 #brew 'lua'
 #brew 'make'
 brew 'mas'
-brew 'fastfetch'
+# brew 'fastfetch'
 brew 'ripgrep'
 brew 'rm-improved'
 #brew 'rustup'
@@ -34,23 +37,23 @@ brew 'mise'
 brew 'uv'
 brew 'pinentry-mac'
 # casks
-cask 'ghostty'
-cask 'vlc'
-cask 'folx'
-cask 'mullvadvpn'
+cask 'kitty'
 cask 'zotero'
 cask 'dbvisualizer'
-cask 'obsidian'
 cask 'maccy'
 cask 'bitwarden'
-cask 'hammerspoon'
-cask 'raycast'
+# cask 'hammerspoon'
+# cask 'raycast'
 cask 'vesktop'
 cask 'keka'
+cask 'rectangle'
+cask 'iina'
+cask 'mos@beta' # mouse utils
+cask 'alttab' # better alt tab behaviour
 
 # mac app store 
 mas "Tailscale", id: 1475387142
-mas "Dropover - Easier Drag & Drop", id: 1355679052
+# mas "Dropover - Easier Drag & Drop", id: 1355679052
 
 # fonts
 cask 'font-fira-code-nerd-font'
