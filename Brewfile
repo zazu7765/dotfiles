@@ -48,8 +48,9 @@ cask 'vesktop'
 cask 'keka'
 cask 'rectangle'
 cask 'iina'
+cask 'helium-browser'
 cask 'mos@beta' # mouse utils
-cask 'alttab' # better alt tab behaviour
+cask 'alt-tab' # better alt tab behaviour
 
 # mac app store 
 mas "Tailscale", id: 1475387142
